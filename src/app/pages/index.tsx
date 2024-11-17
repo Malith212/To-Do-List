@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, ChangeEvent } from 'react';
 
 interface Todo {
@@ -71,51 +69,49 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold mb-6 text-center">To-Do List</h1>
-      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-center">
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">To-Do List</h1>
+      <div className="mb-4">
         <input
           type="text"
           value={title}
           onChange={handleInputChange}
-          placeholder="Enter new task"
-          className="border p-3 rounded-lg w-full sm:w-96"
+          placeholder="New task"
+          className="border p-2 rounded mr-2"
         />
         <button
           onClick={addTodo}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg mt-4 sm:mt-0 sm:ml-4"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
-          Add Task
+          Add
         </button>
       </div>
-      <div className="w-full sm:w-96 bg-white p-4 rounded-lg shadow-md">
-        <ul className="space-y-4">
-          {todos.map((todo) => (
-            <li
-              key={todo.id}
-              className={`flex justify-between items-center ${
-                todo.completed ? 'text-gray-400 line-through' : ''
-              }`}
-            >
-              <span>{todo.title}</span>
-              <div className="space-x-4">
-                <button
-                  onClick={() => toggleComplete(todo.id, todo.completed)}
-                  className="text-green-500 hover:text-green-700"
-                >
-                  {todo.completed ? 'Undo' : 'Complete'}
-                </button>
-                <button
-                  onClick={() => deleteTodo(todo.id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {todos.map((todo) => (
+          <li
+            key={todo.id}
+            className={`flex justify-between items-center border p-2 rounded mb-2 ${
+              todo.completed ? 'line-through text-gray-500' : ''
+            }`}
+          >
+            <span>{todo.title}</span>
+            <div>
+              <button
+                onClick={() => toggleComplete(todo.id, todo.completed)}
+                className="mr-2 bg-green-500 text-white px-2 py-1 rounded"
+              >
+                {todo.completed ? 'Undo' : 'Complete'}
+              </button>
+              <button
+                onClick={() => deleteTodo(todo.id)}
+                className="bg-red-500 text-white px-2 py-1 rounded"
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
