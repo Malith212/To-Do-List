@@ -1,7 +1,9 @@
+// Add 'use client' to ensure this is a client-side component
 'use client';
 
 import { useState, useEffect, ChangeEvent } from 'react';
 
+// Interface for Todo item
 interface Todo {
   id: number;
   title: string;
@@ -12,10 +14,12 @@ export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState<string>('');
 
+  // Fetch todos when the component is mounted
   useEffect(() => {
     fetchTodos();
   }, []);
 
+  // Function to fetch todos from the backend
   const fetchTodos = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5000/todos');
@@ -26,6 +30,7 @@ export default function Home() {
     }
   };
 
+  // Function to add a new todo
   const addTodo = async () => {
     if (!title.trim()) return;
     try {
@@ -42,6 +47,7 @@ export default function Home() {
     }
   };
 
+  // Function to toggle the completion status of a todo
   const toggleComplete = async (id: number, completed: boolean) => {
     try {
       await fetch(`http://127.0.0.1:5000/todos/${id}`, {
@@ -55,6 +61,7 @@ export default function Home() {
     }
   };
 
+  // Function to delete a todo
   const deleteTodo = async (id: number) => {
     try {
       await fetch(`http://127.0.0.1:5000/todos/${id}`, {
@@ -66,6 +73,7 @@ export default function Home() {
     }
   };
 
+  // Handle input change for the new todo title
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
